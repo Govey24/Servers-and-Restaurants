@@ -14,8 +14,8 @@ describe('Item', () => {
         await sequelize.sync({ force: true });
     })
 
-    test('can create an Item', async () => {
-        const item = await Item.create({ name: 'Eggs Benedict', price: 5, menu_id: 1 })
-        expect(item.id).toBe(1)
-    })
+    // test('can create an Item', async () => {
+    //     const item = await Item.create({ name: 'Eggs Benedict', price: 5, menu_id: 1 })
+    //     expect(item.id).toBe(1)
+    // })
 })

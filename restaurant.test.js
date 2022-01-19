@@ -1,7 +1,7 @@
-const {sequelize} = require('./sequelize_index');
-const Restaurant = require('./restaurants');
-const Menu = require('./menus');
-const Item = require('./items');
+const { sequelize } = require('./sequelize_index');
+const { Restaurant } = require('./restaurants');
+const { Menu } = require('./menus');
+const { Item } = require('./items');
 
 describe('Restaurant', () => {
     /**
@@ -14,8 +14,12 @@ describe('Restaurant', () => {
         await sequelize.sync({ force: true });
     })
 
-    test('can create a Restaurant', async () => {
-        const restaurant = await Restaurant.create({ name: 'Ronalds', image: 'http://some.image.url' })
-        expect(restaurant.id).toBe(1)
-    })
+//     test('can create a Restaurant', async () => {
+//         const restaurant = await Restaurant.create({ name: 'Ronalds', image: 'http://some.image.url' })
+//         expect(restaurant.id).toBe(1)
+//     })
+// })
+// test('can find by Primary Key', async () => {
+//     const restaurant = await Restaurant.create({name: 'Johns', image: 'image2' })
+//     expect(restaurant.id).toBe(2)
 })

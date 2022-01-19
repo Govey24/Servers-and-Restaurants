@@ -1,6 +1,7 @@
 const express = require('express'); //import dependency
-const Restaurant = require('./restaurants')
-const {sequelize} = require('./sequelize_index');
+const { Restaurant } = require('./restaurants')
+const { sequelize } = require('./sequelize_index');
+const { body, validationResult } = require('express-validator');
 //const Menu = require('./menus')
 //const Item = require('./items')
 
@@ -22,30 +23,48 @@ app.get("/flipcoin", (request, response) => {
   }
 });
 
-//const {Sequelize, DataTypes, Model} = require('sequelize');
-app.get("/restaurants", async (req, res) => {
+app.get("/restaurants/", async (req, res) => {
   const restaurants = await Restaurant.findAll();
-  res.json(restaurants);
+  res.send(restaurants);
+});
+
+//const {Sequelize, DataTypes, Model} = require('sequelize');
+app.get("/restaurants/:id", async (req, res) => {
+  const restaurants = await Restaurant.findByPk(req.params.id);
+  res.send(restaurants);
 });
 
 
-// ERP: POST
-app.post('./restaurants'), async (req, res) => {
-  const result = await Restaurant.create(
-    req.body
-  )
-  res.send(result)
-};
+app.use(express.urlencoded({ extended: true }))
+app.use(express.json());
 
-//Express Route Parameter PUT
-app.put("/restaurants/:id", (req, res) =>{
+// ERP: POST
+app.post('/restaurants', body('imageLink').isURL(), body('name').isLength({max: 50}),
+async (req, res) => {
+  const errors = validationResult(req)
+  if (!errors.isEmpty()) {
+    return res.status(400).json({errors: errors.array() })
+  };
+    //use data in req.body to add a new restaurant to the DB
+  res.send(req.body)
+  res.sendStatus(201);
+})
+
+//ERP DELETE
+app.delete('/restaurants/:id', async (req, res) => {
+  res.send(req.body.name)
+  res.sendStatus(400);
+})
+
+// Express Route Parameter PUT
+app.put("/restaurants/:id:", (req, res) => {
   const result =
-  await.Restaurant.update(req, body, {
-    where: {
-      id: req.params.id(1)
-    }
-  })
-res.send(result)
+    await.Restaurant.update(req, body, {
+      where: {
+        id: req.params.id(1)
+      }
+    })
+  res.send(result)
 });
 
 //start the web server listening

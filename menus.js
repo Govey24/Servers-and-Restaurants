@@ -1,6 +1,5 @@
 const {sequelize, DataTypes, Model} = require('./sequelize_index');
-const Restaurant = require ('./restaurants');
-const Item = require('./items');
+const { Item } = require('./items');
 
 /**
  * Represents an item
@@ -11,19 +10,13 @@ class Menu extends Model {
 
 }
 Menu.init({
-    // id: { type: DataTypes.INTEGER, 
-    //     primaryKey: true,
-    //     autoIncrement: true
-    //     },
-    title: DataTypes.STRING,
-    restaurant_id:{ 
-        type: DataTypes.INTEGER, 
-        foreignKey: true
-    }
-}, {
+    title: DataTypes.STRING}, {
     sequelize,
-    timestamps: false,
+    timestamps: false
 });
 
+Menu.hasMany(Item, {as: 'items', foreignKey: 'menu_id'});
+Item.belongsTo(Menu, {foreignKey: 'menu_id'});
 
-module.exports = Menu
+
+module.exports = { Menu }

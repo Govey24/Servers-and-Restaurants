@@ -1,6 +1,5 @@
 const { sequelize, DataTypes, Model } = require('./sequelize_index');
-const Menu = require('./menus');
-const Item = require('./items');
+const { Menu } = require('./menus');
 
 /**
  * Represents a Restaurant
@@ -23,7 +22,5 @@ Restaurant.init({
 
 Restaurant.hasMany(Menu, { foreignKey: 'restaurant_id' })
 Menu.belongsTo(Restaurant, { foreignKey: 'restaurant_id' })
-Menu.hasMany(Item, { foreignKey: 'item_id' })
-Item.belongsTo(Menu, { foreignKey: 'menu_id' })
 
-module.exports = Restaurant
+module.exports = { Restaurant }

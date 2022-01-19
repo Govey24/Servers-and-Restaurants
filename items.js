@@ -1,5 +1,4 @@
 const { sequelize, DataTypes, Model } = require('./sequelize_index');
-const Menu = require('./menus');
 
 /**
  * Represents a Menu
@@ -26,4 +25,4 @@ Item.init({
     timestamps: false,
 });
 
-module.exports = Item
+module.exports = { Item }
